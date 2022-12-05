@@ -1,4 +1,4 @@
-set term epslatex size 8.2,5 color colortext 20 standalone header "\\newcommand{\\NF}[1]{$\\scriptstyle{N_\\mathrm{frag}\\,=\\,#1}$}"
+set term epslatex size 7.2,5 color colortext 20 standalone header "\\newcommand{\\NF}[1]{$\\scriptstyle{N_\\mathrm{frag}\\,=\\,#1}$}"
 set output "Fig_p-W.tex"
 
 ROOT="./"
@@ -8,7 +8,7 @@ BOTTOM=0.12
 LEFT=0.1
 RIGHT=0.998
 
-set tmargin at screen TOP 
+set tmargin at screen TOP
 set bmargin at screen BOTTOM
 set lmargin at screen LEFT
 set rmargin at screen RIGHT
@@ -16,7 +16,7 @@ set rmargin at screen RIGHT
 set xrange [0.9:15.2]
 set yrange [0:1]
 set ylabel "success probability" offset 3.5,0
-set xlabel "$W$" offset 0,1 
+set xlabel "$W$" offset 0,1
 sw(x)=1/(x*x*1)
 #set title "$L_{\\mathrm F}=100$"
 set key bottom right samplen 1
@@ -46,4 +46,5 @@ p \
 "< cat ".ROOT."LF100/NF800/LC*/g*.txt |sort -k 15 -g|awk '{if ($12>0) print $0}'" u 7:11:(sw($12)) smooth acsplines lt 6 not,\
 "< cat ".ROOT."LF100/NF1600/LC*/g*.txt|sort -k 15 -g|awk '{if ($12>0) print $0}'" u 7:11:(sw($12)) smooth acsplines lt 7 not,\
 "< cat ".ROOT."LF100/NF3200/LC*/g*.txt|sort -k 15 -g|awk '{if ($12>0) print $0}'" u 7:11:(sw($12)) smooth acsplines lt 8 not,\
-"< cat ".ROOT."LF100/NF6400/LC*/g*.txt|sort -k 15 -g|awk '{if ($12>0) print $0}'" u 7:11:(sw($12)) smooth acsplines lt 9 not 
+"< cat ".ROOT."LF100/NF6400/LC*/g*.txt|sort -k 15 -g|awk '{if ($12>0) print $0}'" u 7:11:(sw($12)) smooth acsplines lt 9 not
+

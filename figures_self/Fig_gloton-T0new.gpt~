@@ -1,0 +1,50 @@
+set term epslatex size 7.2,5 color colortext 20 standalone header "\\newcommand{\\NF}[1]{$\\scriptstyle{N_\\mathrm{frag}\\,=\\,#1}$}"
+set output "Fig_gloton-T0new.tex"
+
+
+TOP=0.98
+BOTTOM=0.12
+LEFT=0.1
+RIGHT=0.998
+
+set tmargin at screen TOP
+set bmargin at screen BOTTOM
+set lmargin at screen LEFT
+set rmargin at screen RIGHT
+
+set key samplen 1.5 left Left reverse
+
+set yrange [0:1]
+#set xrange [0.1:1.9]
+set xrange [-0.9:0.9]
+
+set ylabel "success probability" offset 3.5,0
+set xlabel "$\\langle x\\rangle$" offset 0,1
+
+set format x "\\small%g"
+set format y "\\small%g"
+
+set xtics ("\\small $-0.5$" -0.5,0,0.5) offset 0,0.5
+set ytics offset 0.9,0
+set samples 2
+ROOT="/outnfsV/ASSEMBLY/prod/transicion/"
+PS=1.5
+p \
+"< sort -k 15 -g ".ROOT."NFRAG_rep_T0_OK/LF100/NF25/LC*/T*-*.txt" u (1-$15):11:16:12 w xyerror pt 1 ps PS lt 1 dt 1 lw 3 t "\\NF{\\ 25}",\
+"< sort -k 15 -g ".ROOT."NFRAG_rep_T0_OK/LF100/NF50/LC*/T*-*.txt" u (1-$15):11:16:12 w xyerror pt 2 ps PS lt 2 dt 1 lw 3 t "\\NF{\\ 50}",\
+"< sort -k 15 -g ".ROOT."NFRAG_rep_T0_OK/LF100/NF100/LC*/T*-*.txt" u (1-$15):11:16:12 w xyerror pt 3 ps PS lt 3 dt 1 lw 3 t "\\NF{100}",\
+"< sort -k 15 -g ".ROOT."NFRAG_rep_T0_OK/LF100/NF200/LC*/T*-*.txt" u (1-$15):11:16:12 w xyerror pt 4 ps PS lt 4 dt 1 lw 3 t "\\NF{200}",\
+"< sort -k 15 -g ".ROOT."NFRAG_rep_T0_OK/LF100/NF400/LC*/T*-*.txt" u (1-$15):11:16:12 w xyerror pt 5 ps PS lt 5 dt 1 lw 3 t "\\NF{400}",\
+"< sort -k 15 -g ".ROOT."NFRAG_rep_T0_OK/LF100/NF800/LC*/g*-*.txt" u (1-$15):11:16:12 w xyerror pt 6 ps PS lt 6 dt 1 lw 3 t "\\NF{800}",\
+"< sort -k 15 -g ".ROOT."NFRAG_rep/LF100/NF25/LC*/g*-*.txt"  u (1-$15):11 w l lt 1 dt 2 lw 3 not,\
+"< sort -k 15 -g ".ROOT."NFRAG_rep/LF100/NF50/LC*/g*-*.txt"  u (1-$15):11 w l lt 2 dt 2 lw 3 not,\
+"< sort -k 15 -g ".ROOT."NFRAG_rep/LF100/NF100/LC*/g*-*.txt" u (1-$15):11 w l lt 3 dt 2 lw 3 not,\
+"< sort -k 15 -g ".ROOT."NFRAG_rep/LF100/NF200/LC*/g*-*.txt" u (1-$15):11 w l lt 4 dt 2 lw 3 not,\
+"< sort -k 15 -g ".ROOT."NFRAG_rep/LF100/NF400/LC*/g*-*.txt" u (1-$15):11 w l lt 5 dt 2 lw 3 not,\
+"< sort -k 15 -g ".ROOT."NFRAG_rep/LF100/NF800/LC*/g*-*.txt" u (1-$15):11 w l lt 6 dt 2 lw 3 not,\
+"< sort -k 15 -g ".ROOT."NFRAG_rep/LF100/NF800/LC*/g*-*.txt" u (1-$15):(2)  w l lc rgb "black" dt 2 lw 3 t "\\small glot\\'on"
+
+#2  lc rgb "black" dt 1 t "\\small$T=0$",\
+
+
+
