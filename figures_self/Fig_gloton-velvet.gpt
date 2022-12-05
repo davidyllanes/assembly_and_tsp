@@ -1,0 +1,57 @@
+set term epslatex size 7.2,5 color colortext 20 standalone header "\\newcommand{\\NF}[1]{$\\scriptstyle{N_\\mathrm{frag}\\,=\\,#1}$}"
+set output "Fig_gloton-velvet.tex"
+
+ROOT="./"
+
+
+TOP=0.98
+BOTTOM=0.12
+LEFT=0.1
+RIGHT=0.998
+
+set tmargin at screen TOP
+set bmargin at screen BOTTOM
+set lmargin at screen LEFT
+set rmargin at screen RIGHT
+
+set xrange [1-1.58:1-0.42]
+set yrange [0:1]
+set ylabel "success probability" offset 3.5,0
+#set xlabel "$\\langle d_\\mathrm{max}/l_\\mathrm{frag}\\rangle$" offset 0,1
+set xlabel "$\\langle x\\rangle$" offset 0,1
+sw(x)=1/(x*x*1)
+#set title "$L_{\\mathrm F}=100$"
+set key top left Left reverse samplen 1
+set label "Velvet" at 0.27,0.5
+set format x "\\small%g"
+set format y "\\small%g"
+set xtics ("\\small $-0.5$" -0.5,0,0.5) offset 0,0.5
+
+set ytics offset 0.9,0
+
+p \
+"< cat ".ROOT."LF100/NF25/LC*/g*.txt" u (1-$15):11:16:12 w xyerror lt 1 t "\\NF{\\ \\ 25}",\
+"< cat ".ROOT."LF100/NF50/LC*/g*.txt" u (1-$15):11:16:12 w xyerror lt 2 t "\\NF{\\ \\ 50}",\
+"< cat ".ROOT."LF100/NF100/LC*/g*.txt" u (1-$15):11:16:12 w xyerror lt 3 t "\\NF{\\ 100}",\
+"< cat ".ROOT."LF100/NF200/LC*/g*.txt" u (1-$15):11:16:12 w xyerror lt 4 t "\\NF{\\ 200}",\
+"< cat ".ROOT."LF100/NF400/LC*/g*.txt" u (1-$15):11:16:12 w xyerror lc rgb "#A0A000" t "\\NF{\\ 400}",\
+"< cat ".ROOT."LF100/NF800/LC*/g*.txt" u (1-$15):11:16:12 w xyerror lt 6 t "\\NF{\\ 800}",\
+"< cat ".ROOT."LF100/NF1600/LC*/g*.txt" u (1-$15):11:16:12 w xyerror lt 7 t "\\NF{1600}",\
+"< cat ".ROOT."LF100/NF3200/LC*/g*.txt" u (1-$15):11:16:12 w xyerror lt 8 t "\\NF{3200}",\
+"< cat ".ROOT."LF100/NF6400/LC*/g*.txt" u (1-$15):11:16:12 w xyerror lt 9 t "\\NF{6400}",\
+"< cat ".ROOT."LF100/NF25/LC*/g*.txt  |sort -k 15 -g|awk '{if ($12>0) print $0}'" u (1-$15):11:(sw($12)) smooth acsplines lt 1 not,\
+"< cat ".ROOT."LF100/NF50/LC*/g*.txt  |sort -k 15 -g|awk '{if ($12>0) print $0}'" u (1-$15):11:(sw($12)) smooth acsplines lt 2 not,\
+"< cat ".ROOT."LF100/NF100/LC*/g*.txt |sort -k 15 -g|awk '{if ($12>0) print $0}'" u (1-$15):11:(sw($12)) smooth acsplines lt 3 not,\
+"< cat ".ROOT."LF100/NF200/LC*/g*.txt |sort -k 15 -g|awk '{if ($12>0) print $0}'" u (1-$15):11:(sw($12)) smooth acsplines lt 4 not,\
+"< cat ".ROOT."LF100/NF400/LC*/g*.txt |sort -k 15 -g|awk '{if ($12>0) print $0}'" u (1-$15):11:(sw($12)) smooth acsplines lc rgb "#A0A000" not,\
+"< cat ".ROOT."LF100/NF800/LC*/g*.txt |sort -k 15 -g|awk '{if ($12>0) print $0}'" u (1-$15):11:(sw($12)) smooth acsplines lt 6 not,\
+"< cat ".ROOT."LF100/NF1600/LC*/g*.txt|sort -k 15 -g|awk '{if ($12>0) print $0}'" u (1-$15):11:(sw($12)) smooth acsplines lt 7 not,\
+"< cat ".ROOT."LF100/NF3200/LC*/g*.txt|sort -k 15 -g|awk '{if ($12>0) print $0}'" u (1-$15):11:(sw($12)) smooth acsplines lt 8 not,\
+"< cat ".ROOT."LF100/NF6400/LC*/g*.txt|sort -k 15 -g|awk '{if ($12>0) print $0}'" u (1-$15):11:(sw($12)) smooth acsplines lt 9 not,\
+"< cat ".ROOT."LF100/NF100/LC*/a*.txt" u (1-$13):11:14:12 w xyerror lt 3 pt 7 not,\
+"< cat ".ROOT."LF100/NF400/LC*/a*.txt" u (1-$13):11:14:12 w xyerror lc rgb "#A0A000" pt 7 not,\
+"< cat ".ROOT."LF100/NF1600/LC*/a*.txt" u (1-$13):11:14:12 w xyerror lt 5 pt 7 not,\
+"< cat ".ROOT."LF100/NF100/LC*/a*.txt |sort -k 13 -g|awk '{if ($12>0) print $0}'" u (1-$13):11:(sw($12)) smooth acsplines dt 2 lt 3 not,\
+"< cat ".ROOT."LF100/NF400/LC*/a*.txt |sort -k 13 -g|awk '{if ($12>0) print $0}'" u (1-$13):11:(sw($12)) smooth acsplines dt 2 lc rgb "#A0A000" not,\
+"< cat ".ROOT."LF100/NF1600/LC*/a*.txt |sort -k 13 -g|awk '{if ($12>0) print $0}'" u (1-$13):11:(sw($12)) smooth acsplines dt 2 lt 7 not
+
